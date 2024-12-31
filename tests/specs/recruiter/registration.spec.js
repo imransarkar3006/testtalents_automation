@@ -1,11 +1,21 @@
 // @ts-check
 import {test, expect} from '@playwright/test'
+import testConfig from '../../../testconfig'
+import RegistrationPage from '../../pageObjects/recruiter/registrationPage'
+import { faker } from '@faker-js/faker'
 
-test('has title', async ({ page }) => {
-  await page.goto('https://tt.techmonstar.com/');
+test.describe('recruiter registration', async()=>{
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/TestTalents/);
-});
+  test('registration with valid credentials', async ({ page }) => {
+
+    const fakeFullName = faker.person.fullName()
+    
+
+    const registrationPage = new RegistrationPage(page)
+    await page.goto(`${testConfig.baseURL}`)
+    await expect(page).toHaveTitle(/TestTalents/)
+    await registrationPage.registerWithValidCredentials(fakeFullName, )
+  })
+})
 
 
